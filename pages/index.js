@@ -1,5 +1,5 @@
 import { Box, Button, Text, TextField, Image } from '@skynexui/components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import appConfig from '../config.json'
 import { useRouter } from 'next/router'
 
@@ -25,17 +25,19 @@ export default function PaginaInicial () {
 	const [usernameUrl, setUsernameUrl] = useState('')
 	const [usernameData, setUsernameData] = useState({ followers: 0, name: '' })
 	const router = useRouter()
-	fetch(`https://api.github.com/users/${username}`)
-		.then(res => {
-			if (res.ok) return res.json()
-		})
-		.then(data => {
-			if (data) {
-				setUsernameUrl(`https://github.com/${username}.png`)
-				setUsernameData(data)
-				setVisibleSubmit(true)
-			}
-		})
+	useEffect(() => {
+		fetch(`https://api.github.com/users/${username}`)
+			.then(res => {
+				if (res.ok) return res.json()
+			})
+			.then(data => {
+				if (data) {
+					setUsernameUrl(`https://github.com/${username}.png`)
+					setUsernameData(data)
+					setVisibleSubmit(true)
+				}
+			})
+	}, [])
 
 	return (
 		<>
