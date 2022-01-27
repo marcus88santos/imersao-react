@@ -53,8 +53,8 @@ export default function ChatPage () {
 					borderRadius: '5px',
 					backgroundColor: appConfig.theme.colors.neutrals[700] + 'f1',
 					height: '100%',
-					maxWidth: '95%',
-					maxHeight: '95vh',
+					maxWidth: '70%',
+					maxHeight: '80vh',
 					padding: '32px',
 				}}>
 				<Header />
@@ -126,6 +126,7 @@ export default function ChatPage () {
 }
 
 function Header () {
+	const router = useRouter()
 	return (
 		<>
 			<Box
@@ -142,6 +143,9 @@ function Header () {
 					Chat
 				</Text>
 				<Button
+					onClick={() => {
+						router.push('../')
+					}}
 					variant='tertiary'
 					colorVariant='neutral'
 					label='Logout'
@@ -173,6 +177,7 @@ function MessageList (props) {
 						key={msg.id}
 						tag='li'
 						styleSheet={{
+							flexDirection: 'row',
 							borderRadius: '5px',
 							padding: '6px',
 							marginBottom: '12px',
