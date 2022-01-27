@@ -28,6 +28,18 @@ Projeto em desenvolvimento durante a Imersão React 4 (2022), realizada pela Alu
 - [x] Roteamento para a página Chat
 </details>
 
+<details>
+  <summary>Aula 03</summary>
+
+
+####Atividades:
+
+- [x] Aplicação do template da página de Chat
+- [x] Uso de hooks para guardar dados das mensagens
+- [x] Passagem de dados do usuário da página Home para a Chat via query do useRouter
+- [x] Adição do botão para deletar cada mensagem
+- [x] Adição do botão para enviar a mensagem
+</details>
 
 ## 💻 Instalação do Aluracord
 
