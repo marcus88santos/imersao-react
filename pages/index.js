@@ -174,84 +174,94 @@ export default function PaginaInicial () {
 					{/* Formulário */}
 
 					{/* Photo Area */}
-					<Box
-						styleSheet={{
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-							maxWidth: '200px',
-							padding: '16px',
-							backgroundColor:
-								appConfig.theme.colors.neutrals[800] + '90',
-							border: '1px solid',
-							borderColor: appConfig.theme.colors.neutrals[999],
-							borderRadius: '10px',
-							flex: 1,
-							minHeight: '240px',
+					<a
+						href={`https://github.com/${username}`}
+						target='_blank'
+						rel='noopener noreferrer'
+						style={{
+							'text-decoration': 'none',
 						}}>
-						<Image
+						<Box
 							styleSheet={{
-								borderRadius: '50%',
-								marginBottom: '16px',
-								display: visibleSubmit ? 'block' : 'none',
-							}}
-							src={usernameUrl}
-						/>
-						<Image
-							styleSheet={{
-								borderRadius: '50%',
-								marginBottom: '16px',
-								display: visibleSubmit ? 'none' : 'block',
-							}}
-							src={`/headset.gif`}
-						/>
-						<Text
-							variant='body4'
-							styleSheet={{
-								color: appConfig.theme.colors.neutrals[200],
-								backgroundColor: appConfig.theme.colors.neutrals[900],
-								padding: '3px 10px',
-								borderRadius: '1000px',
+								display: 'flex',
+								flexDirection: 'column',
+								alignItems: 'center',
+								maxWidth: '200px',
+								padding: '16px',
+								backgroundColor:
+									appConfig.theme.colors.neutrals[800] + '90',
+								border: '1px solid',
+								borderColor: appConfig.theme.colors.neutrals[999],
+								borderRadius: '10px',
+								flex: 1,
+								minHeight: '240px',
 							}}>
-							{visibleSubmit ? username : 'invalid username'}
-						</Text>
-						<Text
-							variant='body3'
-							styleSheet={{
-								color: appConfig.theme.colors.neutrals[200],
-								backgroundColor: visibleSubmit
-									? appConfig.theme.colors.primary[600]
-									: appConfig.theme.colors.neutrals[900],
-								marginVertical: '8px',
-								padding: '3px 10px',
-								borderRadius: '1000px',
-							}}>
-							{usernameData.name}
-						</Text>
-						<Text
-							variant='body4'
-							styleSheet={{
-								color: appConfig.theme.colors.neutrals[400],
-								backgroundColor: appConfig.theme.colors.neutrals[900],
-								padding: '3px 10px',
-								borderRadius: '1000px',
-							}}>
-							<svg
-								style={{
-									verticalAlign: 'bottom',
-									height: '15px',
-									width: '20px',
+							<Image
+								styleSheet={{
+									borderRadius: '50%',
+									marginBottom: '16px',
+									display: visibleSubmit ? 'block' : 'none',
+								}}
+								src={usernameUrl}
+							/>
+							<Image
+								styleSheet={{
+									borderRadius: '50%',
+									marginBottom: '16px',
+									display: visibleSubmit ? 'none' : 'block',
+								}}
+								src={`/headset.gif`}
+							/>
+							<Text
+								variant='body4'
+								styleSheet={{
+									color: appConfig.theme.colors.neutrals[200],
+									backgroundColor:
+										appConfig.theme.colors.neutrals[900],
+									padding: '3px 10px',
+									borderRadius: '1000px',
 								}}>
-								<path
+								{visibleSubmit ? username : 'invalid username'}
+							</Text>
+							<Text
+								variant='body3'
+								styleSheet={{
+									color: appConfig.theme.colors.neutrals[200],
+									backgroundColor: visibleSubmit
+										? appConfig.theme.colors.primary[600]
+										: appConfig.theme.colors.neutrals[900],
+									marginVertical: '8px',
+									padding: '3px 10px',
+									borderRadius: '1000px',
+								}}>
+								{usernameData.name}
+							</Text>
+							<Text
+								variant='body4'
+								styleSheet={{
+									color: appConfig.theme.colors.neutrals[400],
+									backgroundColor:
+										appConfig.theme.colors.neutrals[900],
+									padding: '3px 10px',
+									borderRadius: '1000px',
+								}}>
+								<svg
 									style={{
-										fill: appConfig.theme.colors.neutrals[400],
-									}}
-									fillRule='evenodd'
-									d='M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z'></path>
-							</svg>
-							{' ' + usernameData.followers + ' followers'}
-						</Text>
-					</Box>
+										verticalAlign: 'bottom',
+										height: '15px',
+										width: '20px',
+									}}>
+									<path
+										style={{
+											fill: appConfig.theme.colors.neutrals[400],
+										}}
+										fillRule='evenodd'
+										d='M5.5 3.5a2 2 0 100 4 2 2 0 000-4zM2 5.5a3.5 3.5 0 115.898 2.549 5.507 5.507 0 013.034 4.084.75.75 0 11-1.482.235 4.001 4.001 0 00-7.9 0 .75.75 0 01-1.482-.236A5.507 5.507 0 013.102 8.05 3.49 3.49 0 012 5.5zM11 4a.75.75 0 100 1.5 1.5 1.5 0 01.666 2.844.75.75 0 00-.416.672v.352a.75.75 0 00.574.73c1.2.289 2.162 1.2 2.522 2.372a.75.75 0 101.434-.44 5.01 5.01 0 00-2.56-3.012A3 3 0 0011 4z'></path>
+								</svg>
+								{' ' + usernameData.followers + ' followers'}
+							</Text>
+						</Box>
+					</a>
 					{/* Photo Area */}
 				</Box>
 			</Box>

@@ -177,7 +177,6 @@ function MessageList (props) {
 						key={msg.id}
 						tag='li'
 						styleSheet={{
-							flexDirection: 'row',
 							borderRadius: '5px',
 							padding: '6px',
 							marginBottom: '12px',
@@ -187,30 +186,44 @@ function MessageList (props) {
 						}}>
 						<Box
 							styleSheet={{
+								alignItems: 'center',
+								display: 'flex',
+								flexDirection: 'row !important',
 								marginBottom: '8px',
 							}}>
-							<Image
-								styleSheet={{
-									width: '20px',
-									height: '20px',
-									borderRadius: '50%',
-									display: 'inline-block',
-									marginRight: '8px',
-								}}
-								src={msg.usernameUrl}
-							/>
+							<a
+								href={`https://github.com/${msg.username}`}
+								target='_blank'
+								rel='noopener noreferrer'
+								style={{
+									alignItems: 'center',
+									display: 'flex',
+									textDecoration: 'none',
+								}}>
+								<Image
+									styleSheet={{
+										width: '20px',
+										height: '20px',
+										borderRadius: '50%',
+										display: 'inline-block',
+										marginRight: '8px',
+									}}
+									src={msg.usernameUrl}
+								/>
+								<Text
+									styleSheet={{
+										color: appConfig.theme.colors.primary[300],
+									}}
+									tag='strong'>
+									{msg.username}
+								</Text>
+							</a>
 							<Text
 								styleSheet={{
-									color: appConfig.theme.colors.primary[300],
-								}}
-								tag='strong'>
-								{msg.username}
-							</Text>
-							<Text
-								styleSheet={{
+									color: appConfig.theme.colors.neutrals[300],
 									fontSize: '10px',
 									marginLeft: '8px',
-									color: appConfig.theme.colors.neutrals[300],
+									paddingTop: '2px',
 								}}
 								tag='span'>
 								{new Date().toLocaleDateString()}
