@@ -179,7 +179,7 @@ export default function PaginaInicial () {
 						target='_blank'
 						rel='noopener noreferrer'
 						style={{
-							'text-decoration': 'none',
+							textDecoration: 'none',
 						}}>
 						<Box
 							styleSheet={{
