@@ -48,6 +48,16 @@ Projeto em desenvolvimento durante a Imersão React 4 (2022), realizada pela Alu
 -  [x] Efeito de mouseOver sobre Avatar e username, para mostrar info do user e link pro github
    </details>
 
+<details>
+  <summary>Aula 05</summary>
+
+####Atividades:
+
+-  [x] Efeito de mouseOver sobre botão enviar
+-  [x] Adição de Stickers
+-  [ ] Atualização do chat em tempo real
+   </details>
+
 ## 💻 Instalação do Aluracord
 
 ```

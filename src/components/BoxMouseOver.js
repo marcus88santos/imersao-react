@@ -9,7 +9,6 @@ export default function BoxMouseOver ({ username }) {
 		fetch(`https://api.github.com/users/${username}`)
 			.then(res => res.json())
 			.then(data => {
-				console.log(data)
 				setUsernameFollowers(data.followers)
 				setUsernameRepos(data.public_repos)
 			})

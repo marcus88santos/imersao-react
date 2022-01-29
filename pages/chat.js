@@ -6,6 +6,7 @@ import { faTrashAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
 import { createClient } from '@supabase/supabase-js'
 import BoxMouseOver from '../src/components/BoxMouseOver'
+import { ButtonSendSticker } from '../src/components/ButtonSendSticker'
 
 const SUPABE_ANON_KEY =
 	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzM4NzM4MCwiZXhwIjoxOTU4OTYzMzgwfQ.Id2NkgAiuy0H0tY_J9p0Wlh78PT7L9BkUbcg2I8JeE8'
@@ -16,6 +17,7 @@ export default function ChatPage () {
 	const [messageText, setMessageText] = React.useState('')
 	const [messages, setMessages] = React.useState([])
 	const [loaderVisible, setLoaderVisible] = React.useState('flex')
+	const [sendMessageOver, setSendMessageOver] = React.useState(false)
 	const router = useRouter()
 
 	React.useEffect(() => {
@@ -78,7 +80,7 @@ export default function ChatPage () {
 					backgroundColor: appConfig.theme.colors.neutrals[700] + 'f1',
 					height: '100%',
 					maxWidth: '70%',
-					maxHeight: '80vh',
+					maxHeight: '95vh',
 					padding: '32px',
 				}}>
 				<Header username={router.query.username} />
@@ -125,7 +127,7 @@ export default function ChatPage () {
 									handleNewMessage(messageText)
 								}
 							}}
-							placeholder='Insira sua messagem aqui...'
+							placeholder='Insira sua mensagem aqui...'
 							type='textarea'
 							styleSheet={{
 								width: '100%',
@@ -134,8 +136,13 @@ export default function ChatPage () {
 								borderRadius: '5px',
 								padding: '6px 8px',
 								backgroundColor: appConfig.theme.colors.neutrals[800],
-								marginRight: '12px',
+								marginRight: '8px',
 								color: appConfig.theme.colors.neutrals[200],
+							}}
+						/>
+						<ButtonSendSticker
+							onStickerClick={sticker => {
+								handleNewMessage(':sticker:' + sticker)
 							}}
 						/>
 						<FontAwesomeIcon
@@ -145,10 +152,16 @@ export default function ChatPage () {
 									handleNewMessage(messageText)
 								}
 							}}
+							onMouseEnter={() => {
+								if (messageText.length > 0) setSendMessageOver(true)
+							}}
+							onMouseLeave={() => setSendMessageOver(false)}
 							style={{
 								marginLeft: '10px',
 								cursor: 'pointer',
-								color: 'white',
+								color: sendMessageOver
+									? appConfig.theme.colors.primary[400]
+									: 'white',
 								fontSize: '20px',
 							}}
 							icon={faPaperPlane}
@@ -310,7 +323,17 @@ function MessageList (props) {
 								/>
 							)}
 						</Box>
-						{msg.text}
+						{msg.text.startsWith(':sticker:') ? (
+							<Image
+								style={{
+									maxHeight: '150px',
+								}}
+								src={msg.text.replace(':sticker:', '')}
+							/>
+						) : (
+							msg.text
+						)}
+						{/* {msg.text} */}
 					</Text>
 				)
 			})}
