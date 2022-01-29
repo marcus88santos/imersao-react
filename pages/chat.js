@@ -4,23 +4,47 @@ import appConfig from '../config.json'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
+import { createClient } from '@supabase/supabase-js'
+import BoxMouseOver from '../src/components/BoxMouseOver'
+
+const SUPABE_ANON_KEY =
+	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzM4NzM4MCwiZXhwIjoxOTU4OTYzMzgwfQ.Id2NkgAiuy0H0tY_J9p0Wlh78PT7L9BkUbcg2I8JeE8'
+const SUPABASE_URL = 'https://wowfroalsaoxwcokqoxm.supabase.co'
+const supabaseClient = createClient(SUPABASE_URL, SUPABE_ANON_KEY)
 
 export default function ChatPage () {
 	const [messageText, setMessageText] = React.useState('')
 	const [messages, setMessages] = React.useState([])
+	const [loaderVisible, setLoaderVisible] = React.useState('flex')
 	const router = useRouter()
+
+	React.useEffect(() => {
+		setTimeout(() => {
+			supabaseClient
+				.from('messages')
+				.select('*')
+				.order('id', { ascending: false })
+				.then(({ data }) => {
+					setLoaderVisible('none')
+					setMessages(data)
+				})
+		}, 500)
+	}, [])
 
 	function handleNewMessage (text) {
 		const message = {
-			id: messages.length + 1,
 			username: router.query.username,
 			text: text,
-			usernameUrl: router.query.usernameUrl,
 		}
-		setMessages([message, ...messages])
+		supabaseClient
+			.from('messages')
+			.insert([message])
+			.then(({ data }) => {
+				setMessages([data[0], ...messages])
+			})
 		setMessageText('')
 	}
-	// ./Sua lógica vai aqui
+
 	return (
 		<Box
 			styleSheet={{
@@ -68,10 +92,20 @@ export default function ChatPage () {
 						flexDirection: 'column',
 						dorderRadius: '5px',
 						padding: '16px',
+						justifyContent: 'space-between',
 					}}>
+					<Image
+						style={{
+							alignSelf: 'center',
+							display: loaderVisible,
+							height: '12em',
+							marginTop: '2.5em',
+						}}
+						src={`/headsetLoading.gif`}></Image>
 					<MessageList
 						messageList={messages}
 						setMessageList={setMessages}
+						supabaseClient={supabaseClient}
 					/>
 					<Box
 						as='form'
@@ -157,19 +191,33 @@ function Header () {
 }
 
 function MessageList (props) {
+	const [mouseOver, setMouseOver] = React.useState(0)
 	function handleDelete (id) {
+		props.supabaseClient
+			.from('messages')
+			.delete()
+			.match({ id: id })
+			.then(() => {
+				props.supabaseClient
+					.from('messages')
+					.select('*')
+					.order('id', { ascending: false })
+					.then(({ data }) => {
+						props.setMessageList(data)
+					})
+			})
 		props.setMessageList(props.messageList.filter(i => i.id !== id))
 	}
 	return (
 		<Box
 			tag='ul'
 			styleSheet={{
-				overflow: 'auto',
-				display: 'flex',
-				flexDirection: 'column-reverse',
-				flex: 1,
 				color: appConfig.theme.colors.neutrals['000'],
-				marginBottom: '16px',
+				display: 'flex',
+				flex: 1,
+				flexDirection: 'column-reverse',
+				marginBottom: '5px',
+				overflow: 'auto',
 			}}>
 			{props.messageList.map(msg => {
 				return (
@@ -177,9 +225,13 @@ function MessageList (props) {
 						key={msg.id}
 						tag='li'
 						styleSheet={{
-							borderRadius: '5px',
-							padding: '6px',
-							marginBottom: '12px',
+							borderLeft:
+								'1px solid' + appConfig.theme.colors.primary[400],
+							borderRadius: '10px',
+							fontSize: '12px',
+							marginBottom: '7px',
+							padding: '5px 10px',
+							wordBreak: 'break-word',
 							hover: {
 								backgroundColor: appConfig.theme.colors.neutrals[700],
 							},
@@ -199,6 +251,12 @@ function MessageList (props) {
 									alignItems: 'center',
 									display: 'flex',
 									textDecoration: 'none',
+								}}
+								onMouseEnter={() => {
+									setMouseOver(-msg.id)
+								}}
+								onMouseLeave={() => {
+									setMouseOver(0)
 								}}>
 								<Image
 									styleSheet={{
@@ -208,15 +266,19 @@ function MessageList (props) {
 										display: 'inline-block',
 										marginRight: '8px',
 									}}
-									src={msg.usernameUrl}
+									src={`https://github.com/${msg.username}.png`}
 								/>
 								<Text
 									styleSheet={{
+										fontSize: '12px',
 										color: appConfig.theme.colors.primary[300],
 									}}
 									tag='strong'>
 									{msg.username}
 								</Text>
+								{msg.id + mouseOver == 0 ? (
+									<BoxMouseOver username={msg.username} />
+								) : null}
 							</a>
 							<Text
 								styleSheet={{
@@ -231,8 +293,8 @@ function MessageList (props) {
 							<FontAwesomeIcon
 								onClick={() => handleDelete(msg.id)}
 								style={{
-									marginLeft: '10px',
 									cursor: 'pointer',
+									marginLeft: '10px',
 								}}
 								icon={faTrashAlt}
 							/>

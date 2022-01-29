@@ -96,7 +96,7 @@ export default function PaginaInicial () {
 							e.preventDefault()
 							router.push({
 								pathname: '/chat',
-								query: { username: username, usernameUrl: usernameUrl },
+								query: { username: username },
 							})
 						}}>
 						<Titulo tag='h2'>Boas vindas de volta!</Titulo>
