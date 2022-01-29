@@ -30,6 +30,11 @@ export default function ChatPage () {
 					setLoaderVisible('none')
 					setMessages(data)
 				})
+			realTimeMessages(newMessage => {
+				setMessages(messagesUpdated => {
+					return [newMessage, ...messagesUpdated]
+				})
+			})
 		}, 500)
 	}, [])
 
@@ -42,7 +47,7 @@ export default function ChatPage () {
 			.from('messages')
 			.insert([message])
 			.then(({ data }) => {
-				setMessages([data[0], ...messages])
+				// setMessages([data[0], ...messages])
 			})
 		setMessageText('')
 	}
@@ -171,6 +176,15 @@ export default function ChatPage () {
 			</Box>
 		</Box>
 	)
+}
+
+function realTimeMessages (addMessage) {
+	return supabaseClient
+		.from('messages')
+		.on('INSERT', res => {
+			addMessage(res.new)
+		})
+		.subscribe()
 }
 
 function Header (props) {
