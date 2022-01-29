@@ -81,7 +81,7 @@ export default function ChatPage () {
 					maxHeight: '80vh',
 					padding: '32px',
 				}}>
-				<Header />
+				<Header username={router.query.username} />
 				<Box
 					styleSheet={{
 						position: 'relative',
@@ -106,6 +106,7 @@ export default function ChatPage () {
 						messageList={messages}
 						setMessageList={setMessages}
 						supabaseClient={supabaseClient}
+						username={router.query.username}
 					/>
 					<Box
 						as='form'
@@ -159,7 +160,7 @@ export default function ChatPage () {
 	)
 }
 
-function Header () {
+function Header (props) {
 	const router = useRouter()
 	return (
 		<>
@@ -174,7 +175,15 @@ function Header () {
 				<Text
 					styleSheet={{ color: appConfig.theme.colors.neutrals['200'] }}
 					variant='heading5'>
-					Chat
+					{`Chat: `}
+					<span
+						style={{
+							color: appConfig.theme.colors.primary['200'],
+							fontSize: '10px',
+							fontWeight: 'normal',
+						}}>
+						@{props.username}
+					</span>
 				</Text>
 				<Button
 					onClick={() => {
@@ -290,14 +299,16 @@ function MessageList (props) {
 								tag='span'>
 								{new Date().toLocaleDateString()}
 							</Text>
-							<FontAwesomeIcon
-								onClick={() => handleDelete(msg.id)}
-								style={{
-									cursor: 'pointer',
-									marginLeft: '10px',
-								}}
-								icon={faTrashAlt}
-							/>
+							{msg.username === props.username && (
+								<FontAwesomeIcon
+									onClick={() => handleDelete(msg.id)}
+									style={{
+										cursor: 'pointer',
+										marginLeft: '10px',
+									}}
+									icon={faTrashAlt}
+								/>
+							)}
 						</Box>
 						{msg.text}
 					</Text>
