@@ -1,8 +1,8 @@
 # Aluracord
 
-Projeto em desenvolvimento durante a Imersão React 4 (2022), realizada pela Alura.
+Projeto desenvolvido durante a Imersão React 4 (2022), realizada pela Alura.
 
-> Utilização dos frameworks React.JS e Next.JS, bem como da lib SkynexUI/components.
+> Utilização dos frameworks React.JS e Next.JS, bem como da lib SkynexUI/components, e integração com backend via supabase.
 
 ## 📝 Etapas do Projeto
 
@@ -46,6 +46,7 @@ Projeto em desenvolvimento durante a Imersão React 4 (2022), realizada pela Alu
 -  [x] Integração com backend via supabase
 -  [x] Adição de imagem para loading, antes do carregamento do chat
 -  [x] Efeito de mouseOver sobre Avatar e username, para mostrar info do user e link pro github
+-  [x] Delete de mensagem habilitado apenas para o usuário logado
    </details>
 
 <details>
@@ -55,7 +56,7 @@ Projeto em desenvolvimento durante a Imersão React 4 (2022), realizada pela Alu
 
 -  [x] Efeito de mouseOver sobre botão enviar
 -  [x] Adição de Stickers
--  [ ] Atualização do chat em tempo real
+-  [x] Atualização do chat em tempo real
    </details>
 
 ## 💻 Instalação do Aluracord
