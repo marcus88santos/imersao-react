@@ -21,8 +21,19 @@ export function ButtonSendSticker (props) {
 					filter: isOpen ? 'grayscale(0)' : 'grayscale(1)',
 					justifyContent: 'center',
 					lineHeight: '0',
-					maxWidth: '40px',
-					minHeight: '40px',
+					maxWidth: {
+						xs: '25px',
+						sm: '30px',
+					},
+					minHeight: {
+						xs: '25px',
+						sm: '30px',
+					},
+					marginHorizontal: {
+						xs: '0',
+						sm: '0',
+						md: '3px',
+					},
 					hover: {
 						filter: 'grayscale(0)',
 						backgroundColor: appConfig.theme.colors.primary[300],

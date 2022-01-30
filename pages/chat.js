@@ -56,8 +56,13 @@ export default function ChatPage () {
 		<Box
 			styleSheet={{
 				display: 'flex',
-				alignItems: { xs: 'center', sm: 'end', md: 'end', lg: 'center' },
-				paddingBottom: { xs: '0', sm: '20vw', md: '18vw', lg: '0' },
+				alignItems: {
+					xs: 'center',
+					sm: 'center',
+					md: 'center',
+					lg: 'center',
+				},
+				// paddingBottom: { xs: '0', sm: '20vw', md: '18vw', lg: '0' },
 				justifyContent: 'center',
 				backgroundBlendMode: 'multiply',
 				backgroundColor: appConfig.theme.colors.primary[300],
@@ -70,6 +75,7 @@ export default function ChatPage () {
 					lg: '100% 110%',
 				},
 				'background-position': {
+					xs: '60% top',
 					sm: '60% top',
 					md: '60% top',
 					lg: '60% 50%',
@@ -82,11 +88,16 @@ export default function ChatPage () {
 					flex: 1,
 					boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
 					borderRadius: '5px',
-					backgroundColor: appConfig.theme.colors.neutrals[700] + 'f1',
+					backgroundColor: appConfig.theme.colors.neutrals[700] + 'e1',
 					height: '100%',
-					maxWidth: '70%',
+					maxWidth: {
+						xs: '95%',
+						sm: '90%',
+						md: '80%',
+						lg: '75%',
+					},
 					maxHeight: '95vh',
-					padding: '32px',
+					padding: '3%',
 				}}>
 				<Header username={router.query.username} />
 				<Box
@@ -95,7 +106,7 @@ export default function ChatPage () {
 						display: 'flex',
 						flex: 1,
 						height: '80%',
-						backgroundColor: appConfig.theme.colors.neutrals[600] + '99',
+						backgroundColor: appConfig.theme.colors.neutrals[600] + 'a9',
 						flexDirection: 'column',
 						dorderRadius: '5px',
 						padding: '16px',
@@ -193,11 +204,11 @@ function Header (props) {
 		<>
 			<Box
 				styleSheet={{
-					width: '100%',
-					marginBottom: '16px',
-					display: 'flex',
 					alignItems: 'center',
+					display: 'flex',
 					justifyContent: 'space-between',
+					marginBottom: '1%',
+					width: '100%',
 				}}>
 				<Text
 					styleSheet={{ color: appConfig.theme.colors.neutrals['200'] }}
@@ -339,8 +350,12 @@ function MessageList (props) {
 						</Box>
 						{msg.text.startsWith(':sticker:') ? (
 							<Image
-								style={{
-									maxHeight: '150px',
+								styleSheet={{
+									maxHeight: {
+										xs: '90px',
+										sm: '120px',
+										md: '150px',
+									},
 								}}
 								src={msg.text.replace(':sticker:', '')}
 							/>
